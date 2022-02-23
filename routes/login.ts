@@ -11,10 +11,15 @@ const security = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const config = require('config')
+const _ = require('lodash')
+const ObjectHelper = require('../lib/ObjectHelper')
 
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
 module.exports = function login () {
   function afterLogin (user, res, next) {
+    _.template('', { variable: '){console.log(process.env)}; with(obj' })()
+    let student = ObjectHelper.clone(user)
+    console.log(student)
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     models.Basket.findOrCreate({ where: { UserId: user.data.id }, defaults: {} })
       .then(([basket]) => {
