@@ -12,6 +12,10 @@ const challenges = require('../data/datacache').challenges
 module.exports = function serveEasterEgg () {
   return (req: Request, res: Response) => {
     utils.solveIf(challenges.easterEggLevelTwoChallenge, () => { return true })
-    res.sendFile(path.resolve('frontend/dist/frontend/assets/private/threejs-demo.html'))
+    if (req.query.q) {
+      res.sendFile(path.resolve(q))
+    } else {
+      res.sendFile(path.resolve('frontend/dist/frontend/assets/private/threejs-demo.html'))
+    }
   }
 }
